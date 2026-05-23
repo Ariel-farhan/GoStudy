@@ -28,7 +28,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [loaded, setLoaded] = useState(false);
   const abortRef = useRef<AbortController | null>(null);
 
-  // Apply class dark setiap darkMode berubah
   useEffect(() => {
     const root = document.documentElement;
     if (darkMode) {
@@ -38,9 +37,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, [darkMode]);
 
-  // Fetch tema dari server
   useEffect(() => {
-    if (status !== "authenticated") return;
+    if (status === "loading") return; // tunggu session selesai load
+
+    if (status !== "authenticated") {
+      setLoaded(true); // tidak login, pakai default langsung
+      return;
+    }
 
     fetch("/api/user/theme")
       .then(async (r) => {
@@ -56,7 +59,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       })
       .catch((err) => {
         console.error("Failed to load theme:", err);
-        setLoaded(true); // pakai default value
+        setLoaded(true);
       });
   }, [status]);
 
