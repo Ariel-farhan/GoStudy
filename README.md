@@ -7,7 +7,7 @@ Platform belajar berbasis AI yang membantu kamu belajar lebih efektif dan efisie
 ## Fitur
 
 - AI Chat untuk membantu proses belajar
-- Dark mode yang tersimpan per akun
+- Dark mode 
 - Dukungan Bahasa Indonesia dan English
 - Login via Google, GitHub, atau Email & Password
 - Fitur feedback langsung ke developer via Telegram
