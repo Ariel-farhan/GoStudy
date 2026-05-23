@@ -1,17 +1,8 @@
 import { NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function GET() {
-  try {
-    const models = await genAI.listModels();
-
-    return NextResponse.json(models);
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: err.message },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json([
+    { name: "gemini-3.5-flash", displayName: "Gemini 3.5 Flash" },
+    { name: "gemini-2.0-flash", displayName: "Gemini 2.0 Flash" },
+  ]);
 }
