@@ -16,12 +16,7 @@ export async function POST(req: Request) {
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
-
-    // PDF parser (dynamic import biar aman di Next.js)
-    const pdfParse = (await import("pdf-parse/lib/pdf-parse.js")).default;
-    const pdfData = await pdfParse(buffer);
-
-    const text = pdfData.text;
+    const text = buffer.toString("utf-8");
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
