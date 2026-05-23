@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -41,13 +42,4 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   }
-
-  "scripts": {
-  "postinstall": "prisma generate",
-  "dev": "next dev --turbopack",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint"
-},
-
 }
