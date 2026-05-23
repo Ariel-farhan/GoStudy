@@ -1,0 +1,171 @@
+'use client';
+
+import { useRouter } from "next/navigation";
+import { Brain, FileText, MessageSquare, Zap, ArrowRight, BookOpen } from "lucide-react";
+
+export default function LandingPage() {
+  const router = useRouter();
+
+  const features = [
+    {
+      icon: <FileText size={24} />,
+      title: "PDF Summarizer",
+      description: "Upload PDF apapun dan dapatkan ringkasan terstruktur dalam hitungan detik menggunakan AI.",
+    },
+    {
+      icon: <MessageSquare size={24} />,
+      title: "AI Chat",
+      description: "Tanya apa saja tentang dokumen kamu. AI akan menjawab berdasarkan isi materi.",
+    },
+    {
+      icon: <Brain size={24} />,
+      title: "Smart Analysis",
+      description: "AI menganalisis dokumen secara mendalam dan menghasilkan poin-poin penting secara otomatis.",
+    },
+    {
+      icon: <Zap size={24} />,
+      title: "Cepat & Efisien",
+      description: "Hemat waktu belajar hingga 70%. Pahami materi panjang hanya dalam beberapa menit.",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-[var(--page-bg)] text-[var(--page-text)] relative overflow-hidden">
+
+      {/* Background Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-600/10 blur-3xl rounded-full" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 blur-3xl rounded-full" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-purple-800/10 blur-3xl rounded-full" />
+      </div>
+
+      {/* NAVBAR */}
+      <nav className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-[var(--card-border)] bg-[var(--page-bg)]/80 backdrop-blur-xl flex items-center justify-between px-6 md:px-12">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-lg font-bold text-white">
+            S
+          </div>
+          <span className="text-lg font-bold">go study</span>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => router.push("/login")}
+            className="px-5 py-2 rounded-xl text-sm text-[var(--muted-text)] hover:text-[var(--page-text)] transition"
+          >
+            Login
+          </button>
+          <button
+            onClick={() => router.push("/register")}
+            className="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-sm font-medium text-white transition"
+          >
+            Get Started
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-16">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-sm mb-8">
+          <Zap size={14} />
+          Powered by Gemini AI
+        </div>
+
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl">
+          Belajar Lebih{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+            Cerdas
+          </span>{" "}
+          dengan AI
+        </h1>
+
+        <p className="text-[var(--muted-text)] text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
+          Upload materi PDF kamu, dapatkan ringkasan instan, dan tanya langsung ke AI.
+          Belajar tidak pernah semudah dan secepat ini.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <button
+            onClick={() => router.push("/register")}
+            className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 font-semibold text-lg text-white hover:opacity-90 transition"
+          >
+            Mulai Gratis
+            <ArrowRight size={20} />
+          </button>
+          <button
+            onClick={() => router.push("/login")}
+            className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--card-hover)] font-semibold text-lg transition"
+          >
+            <BookOpen size={20} />
+            Login
+          </button>
+        </div>
+
+        {/* Stats */}
+        <div className="flex flex-col sm:flex-row gap-8 mt-16 text-center">
+          {[
+            { value: "10x", label: "Lebih Cepat Belajar" },
+            { value: "100%", label: "Powered by AI" },
+            { value: "Free", label: "Untuk Dicoba" },
+          ].map((stat, i) => (
+            <div key={i}>
+              <p className="text-3xl font-bold text-purple-400">{stat.value}</p>
+              <p className="text-[var(--muted-text)] text-sm mt-1">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section className="py-24 px-4 md:px-12 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Semua yang Kamu Butuhkan</h2>
+          <p className="text-[var(--muted-text)] text-lg max-w-xl mx-auto">
+            Fitur lengkap untuk membantu kamu memahami materi lebih cepat dan efisien.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((feature, i) => (
+            <div
+              key={i}
+              className="p-6 rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--card-hover)] transition flex flex-col gap-4"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-purple-600/20 flex items-center justify-center text-purple-400">
+                {feature.icon}
+              </div>
+              <h3 className="text-lg font-semibold">{feature.title}</h3>
+              <p className="text-[var(--muted-text)] text-sm leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 px-4 text-center">
+        <div className="max-w-2xl mx-auto p-12 rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)]">
+          <h2 className="text-4xl font-bold mb-4">
+            Siap Belajar Lebih{" "}
+            <span className="text-purple-400">Cerdas?</span>
+          </h2>
+          <p className="text-[var(--muted-text)] mb-8">
+            Bergabung sekarang dan rasakan perbedaannya.
+          </p>
+          <button
+            onClick={() => router.push("/register")}
+            className="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-blue-600 font-semibold text-lg text-white hover:opacity-90 transition mx-auto"
+          >
+            Mulai Sekarang
+            <ArrowRight size={20} />
+          </button>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-[var(--card-border)] py-8 text-center text-[var(--muted-text)] text-sm">
+        <p>© 2025 StudyAI. All rights reserved.</p>
+      </footer>
+
+    </div>
+  );
+}
