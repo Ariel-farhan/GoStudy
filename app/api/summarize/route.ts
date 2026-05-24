@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-const model = genAI.getGenerativeModel({ model:  "gemini-2.5-flash-lite" });
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
 
 function validateFile(file: File): string | null {
   const MAX_SIZE_MB = 10;
@@ -22,6 +25,11 @@ function jsonResponse(body: object, status = 200) {
 
 export async function POST(req: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return jsonResponse({ success: false, error: "Unauthorized" }, 401);
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File;
 
@@ -63,7 +71,16 @@ Kesimpulan
 
     const summary = result.response.text();
 
-    return jsonResponse({ success: true, summary });
+    // Buat chat baru dan simpan summary
+    const chat = await prisma.chat.create({
+      data: {
+        userId: session.user.id,
+        title: file.name,
+        summary,
+      },
+    });
+
+    return jsonResponse({ success: true, summary, chatId: chat.id });
   } catch (err: unknown) {
     console.error("[PDF Summary API Error]", err);
     const message = err instanceof Error ? err.message : "Terjadi kesalahan tidak diketahui";

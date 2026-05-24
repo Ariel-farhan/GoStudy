@@ -80,6 +80,9 @@ export default function WorkspacePage() {
       const data = await res.json();
       if (data.success) {
         setSummary(data.summary);
+        setChatId(data.chatId); // ← simpan chatId dari summarize
+        // refresh session list
+        fetch("/api/chats").then((r) => r.json()).then((d) => setSessions(d.chats || []));
         setChat((prev) => [...prev, { role: "ai", text: tx.documentReady(file.name) }]);
       } else {
         setSummary("Error: " + data.error);
