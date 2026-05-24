@@ -30,47 +30,47 @@ export default function SessionsPage() {
     <div className="min-h-screen bg-[var(--page-bg)] text-[var(--page-text)]">
 
       {/* TOPBAR */}
-      <header className="h-20 border-b border-[var(--card-border)] bg-[var(--card-bg)] backdrop-blur-xl flex items-center px-6 lg:px-10">
+      <header className="h-14 border-b border-[var(--card-border)] bg-[var(--card-bg)] flex items-center px-6 lg:px-8">
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 text-[var(--muted-text)] hover:text-[var(--page-text)] transition"
+          className="flex items-center gap-1.5 text-sm text-[var(--muted-text)] hover:text-[var(--page-text)] transition"
         >
-          <ArrowLeft size={18} />
+          <ArrowLeft size={15} />
           {tx.backToDashboard}
         </Link>
       </header>
 
-      {/* CONTENT */}
-      <main className="p-6 lg:p-10">
-        <div className="max-w-5xl mx-auto">
+      <main className="p-5 lg:p-8">
+        <div className="max-w-4xl mx-auto">
 
           {/* HEADER */}
-          <div className="mb-10">
-            <p className="text-purple-600 dark:text-purple-400 font-medium mb-3">{tx.studySessions}</p>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">{tx.continueYourLearning}</h1>
-            <p className="text-[var(--muted-text)] max-w-2xl">{tx.sessionsDesc}</p>
+          <div className="mb-7">
+            <p className="text-purple-500 dark:text-purple-400 text-sm font-medium mb-1.5">
+              {tx.studySessions}
+            </p>
+            <h1 className="text-2xl lg:text-3xl font-bold mb-2 text-gray-900 dark:text-white">
+              {tx.continueYourLearning}
+            </h1>
+            <p className="text-sm text-[var(--muted-text)] max-w-lg">{tx.sessionsDesc}</p>
           </div>
 
-          {/* LOADING */}
           {loading && (
-            <div className="text-[var(--muted-text)] animate-pulse text-sm">{tx.loadingSessions}</div>
+            <p className="text-sm text-[var(--muted-text)] animate-pulse">{tx.loadingSessions}</p>
           )}
 
-          {/* EMPTY */}
           {!loading && sessions.length === 0 && (
-            <div className="rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)] p-10 text-center">
-              <p className="text-[var(--muted-text)] mb-4">{tx.noSessionsSaved}</p>
+            <div className="rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] p-8 text-center">
+              <p className="text-sm text-[var(--muted-text)] mb-4">{tx.noSessionsSaved}</p>
               <Link
                 href="/workspace"
-                className="inline-flex h-12 px-6 rounded-2xl bg-purple-600 hover:bg-purple-500 transition items-center font-medium text-white"
+                className="inline-flex h-10 px-5 rounded-xl bg-purple-600 hover:bg-purple-500 transition items-center text-sm font-medium text-white"
               >
                 {tx.startNewSession}
               </Link>
             </div>
           )}
 
-          {/* SESSION LIST */}
-          <div className="space-y-5">
+          <div className="space-y-3">
             {sessions.map((session) => {
               const aiMessages = session.messages.filter((m) => m.role === "ai");
               const lastMessage = session.messages[session.messages.length - 1];
@@ -79,42 +79,42 @@ export default function SessionsPage() {
                 <Link
                   key={session.id}
                   href={`/workspace?sessionId=${session.id}`}
-                  className="block rounded-3xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--card-hover)] transition p-6 lg:p-8"
+                  className="block rounded-2xl border border-[var(--card-border)] bg-[var(--card-bg)] hover:bg-[var(--card-hover)] transition p-5"
                 >
-                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                    {/* LEFT */}
-                    <div className="space-y-3 flex-1">
-                      <h2 className="text-2xl font-bold truncate text-gray-900 dark:text-white">{session.title}</h2>
+                    <div className="space-y-2 flex-1 min-w-0">
+                      <h2 className="text-base font-semibold truncate text-gray-900 dark:text-white">
+                        {session.title}
+                      </h2>
 
-                      <div className="flex flex-col sm:flex-row gap-4 text-sm text-[var(--muted-text)]">
-                        <div className="flex items-center gap-2">
-                          <Clock3 size={16} />
+                      <div className="flex flex-wrap gap-3 text-xs text-[var(--muted-text)]">
+                        <span className="flex items-center gap-1.5">
+                          <Clock3 size={13} />
                           {new Date(session.updatedAt).toLocaleDateString(
                             language === "id" ? "id-ID" : "en-US",
-                            { day: "numeric", month: "long", year: "numeric" }
+                            { day: "numeric", month: "short", year: "numeric" }
                           )}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <MessageSquare size={16} />
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <MessageSquare size={13} />
                           {tx.messages(session.messages.length)}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <FileText size={16} />
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <FileText size={13} />
                           {aiMessages.length > 0 ? tx.summaryAvailable : tx.noSummaryYet}
-                        </div>
+                        </span>
                       </div>
 
                       {lastMessage && (
-                        <p className="text-sm text-[var(--muted-text)] line-clamp-2">
+                        <p className="text-xs text-[var(--muted-text)] line-clamp-1">
                           {lastMessage.text}
                         </p>
                       )}
                     </div>
 
-                    {/* RIGHT */}
-                    <div className="flex-shrink-0">
-                      <div className="inline-flex h-12 px-6 rounded-2xl bg-purple-600 items-center justify-center font-medium text-white">
+                    <div className="shrink-0">
+                      <div className="inline-flex h-9 px-4 rounded-xl bg-purple-600 items-center justify-center text-sm font-medium text-white">
                         {tx.openSession}
                       </div>
                     </div>
@@ -127,7 +127,6 @@ export default function SessionsPage() {
 
         </div>
       </main>
-
     </div>
   );
 }
