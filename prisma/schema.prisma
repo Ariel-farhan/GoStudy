@@ -21,6 +21,8 @@ model User {
   sessions      Session[]
   chats         Chat[]
   createdAt     DateTime  @default(now())
+   resetToken         String?
+  resetTokenExpiry   DateTime?
 }
 
 model Account {

@@ -6,6 +6,7 @@ import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -88,20 +89,17 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* Form Header */}
               <div className="mb-6 text-center lg:text-left">
                 <h3 className="text-2xl font-bold mb-1">Welcome Back</h3>
                 <p className="text-gray-400 text-sm">Login to continue your learning journey</p>
               </div>
 
-              {/* Error */}
               {error && (
                 <div className="mb-4 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
                   {error}
                 </div>
               )}
 
-              {/* Form */}
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-gray-300 mb-1.5">Email</label>
@@ -141,9 +139,12 @@ export default function LoginPage() {
                     <input type="checkbox" className="w-3.5 h-3.5 accent-purple-500" />
                     Remember me
                   </label>
-                  <button type="button" className="text-purple-400 hover:text-purple-300 transition text-xs">
+                  <Link
+                    href="/forgot-password"
+                    className="text-purple-400 hover:text-purple-300 transition text-xs"
+                  >
                     Forgot password?
-                  </button>
+                  </Link>
                 </div>
 
                 <button
