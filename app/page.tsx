@@ -43,7 +43,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 h-14 border-b border-[var(--card-border)] bg-[var(--page-bg)]/80 backdrop-blur-xl flex items-center justify-between px-6 md:px-12">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-base font-bold text-white">
-            S
+             <img src="/favicon.ico" alt="" width={32} height={32} />
           </div>
           <span className="text-base font-bold">go study</span>
         </div>
